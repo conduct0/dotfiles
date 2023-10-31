@@ -1,0 +1,7 @@
+# Ignore everything
+*
+!*/
+!.gitignore 
+# Recursively allow files under subtree
+!nvim/
+!sway/*
