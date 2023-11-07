@@ -5,7 +5,7 @@
 # Read `man 5 sway` for a complete reference.
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
+# Logo key. Use Mod1 for Ctrl.
 set $mod Mod4
 # Home row direction keys, like vim
 set $left h
@@ -220,10 +220,15 @@ font pango:monospace 0
 titlebar_padding 1
 titlebar_border_thickness 0
 # Custom Keybindings
-bindsym $mod+Alt+b exec firefox
-bindsym $mod+Alt+e exec nautilus
-bindsym $mod+Alt+k exec keepassxc
-bindsym $mod+Alt+o exec obsidian
+bindsym $mod+Ctrl+b exec firefox
+bindsym $mod+Ctrl+e exec nautilus
+bindsym $mod+Ctrl+k exec keepassxc
+bindsym $mod+Ctrl+o exec obsidian
+exec swaymsg "workspace 1; exec $term;"
+exec sleep 0.3s && swaymsg "workspace 2;exec firefox";
+exec sleep 0.6s && swaymsg "workspace 3;exec obsidian";
+exec sleep 0.9s && swaymsg "workspace 4;exec nautilus";
+exec sleep 1.2s && swaymsg "workspace 5;exec keepassxc";
 # Media keys
 # $ xev -event keyboard
 # Use pactl.
