@@ -3,6 +3,6 @@
 !*/
 !.gitignore 
 # Recursively allow files under subtree
-!nvim/*
-!sway/*
+!nvim/**/*
+!sway/**/*
 !README.md
