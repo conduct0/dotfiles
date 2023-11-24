@@ -229,6 +229,27 @@ exec sleep 0.3s && swaymsg "workspace 2;exec firefox";
 exec sleep 0.6s && swaymsg "workspace 3;exec obsidian";
 exec sleep 0.9s && swaymsg "workspace 4;exec nautilus";
 exec sleep 1.2s && swaymsg "workspace 5;exec keepassxc";
+
+#
+# Screen capture
+#
+set $screenshot 1 selected, 2 whole, 3 selected clipboard, 4 whole clipboard, 5 swappy
+mode "$screenshot" {
+    bindsym 1 exec 'grim -g "$(slurp)" ~/ps_$(date +"%Y%m%d%H%M%S").png', mode "default"
+    bindsym 2 exec 'grim ~/ps_$(date +"%Y%m%d%H%M%S").png', mode "default"
+    bindsym 3 exec 'grim -g "$(slurp)" - | wl-copy', mode "default"
+    bindsym 4 exec 'grim - | wl-copy', mode "default"
+    bindsym 5 exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
+
+# back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+Print mode "default"
+}
+
+bindsym $mod+F11 mode "$screenshot"
+
+
 # Media keys
 # $ xev -event keyboard
 # Use pactl.
