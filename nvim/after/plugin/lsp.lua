@@ -1,6 +1,6 @@
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -38,9 +38,12 @@ local on_attach = function(_, bufnr)
   end, '[W]orkspace [L]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
+  --    vim.lsp.buf.format()
+  --  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+  --  end, { desc = 'Format current buffer with LSP' })
+  --  if client.name == "tsserver" then
+  --    client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
+  -- end
 end
 
 -- document existing key chains
@@ -70,10 +73,11 @@ require('mason-lspconfig').setup()
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
+  pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  tsserver = {},
+  html = { filetypes = { 'html', 'twig', 'hbs' } },
+  cssls = { filetypes = { 'scss', 'css' } },
 
   lua_ls = {
     Lua = {
@@ -109,5 +113,3 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
-
-
