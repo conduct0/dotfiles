@@ -216,7 +216,7 @@ bar {
 # CUSTOM
 # Remove title bar of windows
 default_floating_border none
-font pango:monospace 0
+font pango: "0xProto Nerd Font Mono" 0
 titlebar_padding 1
 titlebar_border_thickness 0
 # Custom Keybindings
@@ -247,7 +247,7 @@ mode "$screenshot" {
     bindsym $mod+Print mode "default"
 }
 
-bindsym $mod+F11 mode "$screenshot"
+bindsym $mod+Print mode "$screenshot"
 
 
 # Media keys
