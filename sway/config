@@ -22,7 +22,7 @@ set $menu dmenu_path | fuzzel --dmenu | xargs swaymsg exec --
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/thaymonkey/Pictures/Fotots/Rollos/Rollo\ 59/R1-06710-0014.JPG fill
+output * bg /usr/share/backgrounds/sway/main-background-image.jpg fill
 #
 # Example configuration:
 #
