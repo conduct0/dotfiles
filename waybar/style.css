@@ -29,7 +29,6 @@ tooltip label {
     color: #ffffff;
     /* Use box-shadow instead of border so the text isn't offset */
     box-shadow: inset 0 -3px transparent;
-    /* Avoid rounded borders under each workspace name */
     border: none;
     border-radius: 0;
 }
@@ -88,7 +87,6 @@ tooltip label {
 #mode,
 #idle_inhibitor,
 #mpd {
-    /* background-color: rgba(141, 98, 247, 0.20); */
     padding: 0.5rem;
     margin-right: 1rem;
 }
@@ -98,7 +96,6 @@ tooltip label {
     margin: 0 4px;
 }
 
-/* If workspaces is the leftmost module, omit left margin */
 #clock {
     margin-right: 0;
 }
@@ -109,8 +106,4 @@ tooltip label {
     border-radius: 1rem;
     margin: 5px 0 5px 0;
     padding: 0 0.5rem 0 0.5rem;
-}
-
-.nf-fa-volume_up {
-    font-size: 20px;
 }
