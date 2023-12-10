@@ -233,21 +233,17 @@ exec sleep 1.2s && swaymsg "workspace 5;exec keepassxc";
 #
 # Screen capture
 #
-set $screenshot 1 selected, 2 whole, 3 selected clipboard, 4 whole clipboard, 5 swappy
+set $screenshot 1 clipboard, 2 swappy
 mode "$screenshot" {
-    bindsym 1 exec 'grim -g "$(slurp)" ~/ps_$(date +"%Y%m%d%H%M%S").png', mode "default"
-    bindsym 2 exec 'grim ~/ps_$(date +"%Y%m%d%H%M%S").png', mode "default"
-    bindsym 3 exec 'grim -g "$(slurp)" - | wl-copy', mode "default"
-    bindsym 4 exec 'grim - | wl-copy', mode "default"
-    bindsym 5 exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
-
-# back to normal: Enter or Escape
+    bindsym 1 exec 'grim - | wl-copy', mode "default"
+    bindsym 2 exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
+    # back to normal
     bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym $mod+Print mode "default"
+    bindsym q mode "default"
 }
 
-bindsym $mod+Print mode "$screenshot"
+bindsym $mod+p mode "$screenshot"
 
 
 # Media keys
