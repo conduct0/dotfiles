@@ -235,8 +235,10 @@ exec sleep 1.2s && swaymsg "workspace 5;exec keepassxc";
 #
 set $screenshot 1 clipboard, 2 swappy
 mode "$screenshot" {
-    bindsym 1 exec 'grim - | wl-copy', mode "default"
-    bindsym 2 exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
+    bindsym 1 exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
+    bindsym 2 exec 'grim - | wl-copy', mode "default"
+    # Small faster access to swappy
+    bindsym $mod+p exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
     # back to normal
     bindsym Return mode "default"
     bindsym Escape mode "default"
