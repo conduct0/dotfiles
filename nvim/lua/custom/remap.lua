@@ -1,9 +1,11 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex,{desc="Go back"})
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Go back" })
 
 -- When Highlighted can move up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+-- Select all
+vim.keymap.set("n", "<C-l>", "v%", { desc = "Select all lines" })
 -- Take line under and paste on curr line with space
 vim.keymap.set("n", "J", "mzJ`z")
 -- half page jumping with cursor in middle
@@ -14,7 +16,7 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- Paste over a word, deleting it, without loosing yanked
-vim.keymap.set("x", "<leader>p", [["_dP]],{desc="Paste over, no yank"})
+vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste over, no yank" })
 
 -- Copy to system clipboard
 vim.keymap.set("v", "<leader>y", [["+y]], { desc = "Yank selection to clip" })
@@ -44,5 +46,3 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
-

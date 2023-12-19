@@ -78,7 +78,7 @@ local servers = {
   tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
   cssls = { filetypes = { 'scss', 'css' } },
-
+  jsonls = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
