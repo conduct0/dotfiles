@@ -1,5 +1,6 @@
 -- Utilities for creating configurations
 local util = require "formatter.util"
+local formatter_prettier = { require('formatter.defaults.prettier') }
 
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 require("formatter").setup {
@@ -11,7 +12,11 @@ require("formatter").setup {
 	filetype = {
 		-- Formatter configurations for filetype "lua" go here
 		-- and will be executed in order
-		lua = {
+		javascript      = formatter_prettier,
+		javascriptreact = formatter_prettier,
+		typescript      = formatter_prettier,
+		typescriptreact = formatter_prettier,
+		lua             = {
 			-- "formatter.filetypes.lua" defines default configurations for the
 			-- "lua" filetype
 			require("formatter.filetypes.lua").stylua,
@@ -41,10 +46,16 @@ require("formatter").setup {
 
 		-- Use the special "*" filetype for defining formatter configurations on
 		-- any filetype
-		["*"] = {
+		["*"]           = {
 			-- "formatter.filetypes.any" defines default configurations for any
 			-- filetype
 			require("formatter.filetypes.any").remove_trailing_whitespace
 		}
 	}
 }
+vim.api.nvim_create_augroup('BufWritePreFormatter', {})
+vim.api.nvim_create_autocmd('BufWritePre', {
+	command = 'FormatWrite',
+	group = 'BufWritePreFormatter',
+	pattern = { '*.js', '*.jsx', '*.ts', '*.tsx' },
+})
