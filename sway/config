@@ -215,6 +215,12 @@ bar {
 }
 # CUSTOM
 # Remove title bar of windows
+
+# ONE TAP TOUCH
+input type:touchpad {
+    tap enabled
+}
+
 default_floating_border none
 font pango: "0xProto Nerd Font Mono" 0
 titlebar_padding 1
