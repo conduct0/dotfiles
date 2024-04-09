@@ -71,10 +71,21 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
   pyright = {},
-  -- rust_analyzer = {},
+  solargraph = {
+    cmd = { os.getenv("HOME") .. "/.rbenv/versions/3.2.2/bin/solargraph", 'stdio' },
+    settings = {
+      solargraph = {
+        autoformat = true,
+        completion = true,
+        diagnostic = true,
+        folding = true,
+        references = true,
+        rename = true,
+        symbols = true
+      }
+    },
+  },
   tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
   cssls = { filetypes = { 'scss', 'css' } },
