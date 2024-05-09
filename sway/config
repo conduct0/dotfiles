@@ -3,9 +3,10 @@
 # Copy this to ~/.config/sway/config and edit it to your liking.
 #
 # Read `man 5 sway` for a complete reference.
+
 ### Variables
 #
-# Logo key. Use Mod1 for Ctrl.
+# Logo key. Use Mod1 for Alt.
 set $mod Mod4
 # Home row direction keys, like vim
 set $left h
@@ -13,24 +14,31 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
+# Recommends: foot
 set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | fuzzel --dmenu | xargs swaymsg exec --
+# Recommends: rofi-wayland
+set $rofi_cmd rofi \
+        -terminal '$term'
+# Shows a combined list of the applications with desktop files and
+# executables from PATH.
+# TODO: add window with the next release of rofi-wayland
+set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/main-background-image.jpg fill
+# Requires: desktop-backgrounds-compat, swaybg
+output * bg /usr/share/backgrounds/main-background-image.jpg fill
 #
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
-output eDP-1 scale 1.5
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-
+output eDP-1 scale 1.6
 ### Idle configuration
 #
 # Example configuration:
@@ -196,35 +204,40 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
-    swaybar_command waybar
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    #status_command while date +'%I:%M:%S %p  %Y-%m-%d' ; do sleep 1; done
 
-    #colors {
-    #    statusline #ffffff
-    #    background #4e3972
-    #	inactive_workspace  #606ebf #606ebf  #ffffff
-    #}
-}
+# Include configs from 3 locations:
+#  - /usr/share/sway/config.d
+#  - /etc/sway/config.d
+#  - $XDG_CONFIG_HOME/sway/config.d ($HOME/.config/sway/config.d)
+#
+# If multiple directories contain the files with the same name, the later
+# directory takes precedence; `$XDG_CONFIG_HOME/sway/config.d/20-swayidle.conf`
+# will always be loaded instead of `/usr/share/sway/config.d/20-swayidle.conf`
+# or `/etc/sway/config.d/20-swayidle.conf`
+#
+# This mechanism permits overriding our default configuration per-system
+# (/etc) or per-user ($XDG_CONFIG_HOME) basis. Just create the file you
+# want to modify/override in the higher-level directory.
+#
+# For example, to disable the default bar from Fedora configs, you'll need to
+#     $ echo -n > "$HOME/.config/sway/config.d/90-bar.conf"
+#
+# Note the quoting, the $() and the arguments quoting. All the parts are equally
+# important to make the magic work. And if you want to learn the secret behind
+# the trick, it's all in the `wordexp(3)`.
 # CUSTOM
-# Remove title bar of windows
 
 # ONE TAP TOUCH
 input type:touchpad {
     tap enabled
 }
 
+font pango: monospace 0.001
+default_border none
 default_floating_border none
-font pango: "0xProto Nerd Font Mono" 0
 titlebar_padding 1
 titlebar_border_thickness 0
+
 # Custom Keybindings
 bindsym $mod+Ctrl+b exec firefox
 bindsym $mod+Ctrl+e exec nautilus
@@ -235,40 +248,22 @@ exec sleep 0.3s && swaymsg "workspace 2;exec firefox";
 exec sleep 0.6s && swaymsg "workspace 3;exec obsidian";
 exec sleep 0.9s && swaymsg "workspace 4;exec nautilus";
 exec sleep 1.2s && swaymsg "workspace 5;exec keepassxc";
-
 #
 # Screen capture
 #
-set $screenshot 1 clipboard, 2 swappy
-mode "$screenshot" {
-    bindsym 1 exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
-    bindsym 2 exec 'grim - | wl-copy', mode "default"
-    # Small faster access to swappy
-    bindsym $mod+p exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
-    # back to normal
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym q mode "default"
-}
+# set $screenshot 1 clipboard, 2 swappy
+# mode "$screenshot" {
+#     bindsym 1 exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
+#     bindsym 2 exec 'grim - | wl-copy', mode "default"
+#     # Small faster access to swappy
+#     bindsym $mod+p exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
+#     # back to normal
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+#     bindsym q mode "default"
+# }
+#
+# bindsym $mod+p mode "$screenshot"
+#
+include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
 
-bindsym $mod+p mode "$screenshot"
-
-
-# Media keys
-# $ xev -event keyboard
-# Use pactl.
-# Framework Laptop F1: XF86AudioMute
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-# Framework Laptop F2: XF86AudioRaiseVolume
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
-# Framework Laptop F3: XF86AudioLowerVolume
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
-
-bindsym XF86MonBrightnessDown exec "brightnessctl --device intel_backlight --min-value=5 set 5%-"
-# Framework Laptop F8: XF86MonBrightnessUp
-bindsym XF86MonBrightnessUp exec "brightnessctl --device intel_backlight set 5%+"
-# Suspend
-bindsym $mod+Shift+period exec systemctl suspend
-include /etc/sway/config.d/*
-include ~/.config/sway/conf.d/*

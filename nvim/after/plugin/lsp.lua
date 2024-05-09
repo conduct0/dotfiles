@@ -72,20 +72,20 @@ require('mason-lspconfig').setup()
 --  define the property 'filetypes' to the map in question.
 local servers = {
   pyright = {},
-  solargraph = {
-    cmd = { os.getenv("HOME") .. "/.rbenv/versions/3.2.2/bin/solargraph", 'stdio' },
-    settings = {
-      solargraph = {
-        autoformat = true,
-        completion = true,
-        diagnostic = true,
-        folding = true,
-        references = true,
-        rename = true,
-        symbols = true
-      }
-    },
-  },
+  -- solargraph = {
+  --   cmd = { os.getenv("HOME") .. "/.rbenv/versions/3.2.2/bin/solargraph", 'stdio' },
+  --   settings = {
+  --     solargraph = {
+  --       autoformat = true,
+  --       completion = true,
+  --       diagnostic = true,
+  --       folding = true,
+  --       references = true,
+  --       rename = true,
+  --       symbols = true
+  --     }
+  --   },
+  -- },
   tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
   cssls = { filetypes = { 'scss', 'css' } },
