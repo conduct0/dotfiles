@@ -13,7 +13,7 @@ require("rose-pine").setup({
 	styles = {
 		bold = true,
 		italic = true,
-		transparency = false,
+		transparency = true,
 	},
 
 	groups = {
@@ -51,6 +51,12 @@ require("rose-pine").setup({
 		-- Comment = { fg = "foam" },
 		-- VertSplit = { fg = "muted", bg = "muted" },
 		Lualine = { fg = "iris", bg = "iris", blend = 10 },
+		TelescopeBorder = { fg = "highlight_high", bg = "none" },
+		TelescopeNormal = { bg = "none" },
+		TelescopePromptNormal = { bg = "base" },
+		TelescopeResultsNormal = { fg = "subtle", bg = "none" },
+		TelescopeSelection = { fg = "text", bg = "base" },
+		TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
 	},
 
 	before_highlight = function(group, highlight, palette)
