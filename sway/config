@@ -38,7 +38,7 @@ output * bg /usr/share/backgrounds/main-background-image.jpg fill
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-output eDP-1 scale 1.6
+output eDP-1 scale 1.5
 ### Idle configuration
 #
 # Example configuration:
@@ -233,7 +233,7 @@ input type:touchpad {
 }
 
 font pango: monospace 0.001
-default_border none
+default_border pixel 1
 default_floating_border none
 titlebar_padding 1
 titlebar_border_thickness 0
@@ -243,11 +243,10 @@ bindsym $mod+Ctrl+b exec firefox
 bindsym $mod+Ctrl+e exec nautilus
 bindsym $mod+Ctrl+k exec keepassxc
 bindsym $mod+Ctrl+o exec obsidian
-exec swaymsg "workspace 1; exec $term;"
+exec swaymsg "workspace 4;exec thunar";
 exec sleep 0.3s && swaymsg "workspace 2;exec firefox";
-exec sleep 0.6s && swaymsg "workspace 3;exec obsidian";
-exec sleep 0.9s && swaymsg "workspace 4;exec nautilus";
-exec sleep 1.2s && swaymsg "workspace 5;exec keepassxc";
+exec sleep 0.4s && swaymsg "workspace 5;exec keepassxc";
+exec sleep 0.9s && swaymsg "workspace 1; exec $term;"
 #
 # Screen capture
 #
