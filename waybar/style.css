@@ -51,10 +51,18 @@ tooltip label {
 }
 
 @keyframes blink {
-    to {
-        background-color: #ffd700;
-        color: white;
+    0% {
+        color: #ffd700;
     }
+
+    50% {
+        color: #a162f7;
+    }
+
+    100% {
+        color: #ffd700;
+    }
+
 }
 
 #battery.charging {
@@ -65,7 +73,7 @@ tooltip label {
     color: white;
     animation-name: blink;
     animation-duration: 0.5s;
-    animation-timing-function: linear;
+    animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }

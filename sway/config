@@ -21,7 +21,8 @@ set $term foot
 # on the original workspace that the command was run on.
 # Recommends: rofi-wayland
 set $rofi_cmd rofi \
-        -terminal '$term'
+        -terminal '$term'\
+        -font 'FiraCode Nerd Font 11'
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
 # TODO: add window with the next release of rofi-wayland
@@ -232,7 +233,7 @@ input type:touchpad {
     tap enabled
 }
 
-font pango: monospace 0.001
+font FiraCode Nerd Font: regular  0.001
 default_border pixel 1
 default_floating_border none
 titlebar_padding 1
