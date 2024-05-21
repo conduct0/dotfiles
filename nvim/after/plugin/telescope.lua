@@ -38,5 +38,5 @@ vim.keymap.set('n', '<leader>sd', tb.diagnostics, { desc = '[S]earch [D]iagnosti
 vim.keymap.set('n', '<leader>sr', tb.resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>swf', function()
 	-- For this function to work ripgrep had to be installed.
-	builtin.grep_string({ search = vim.fn.input("Grep > ") });
+	tb.grep_string({ search = vim.fn.input("Grep > ") });
 end, { desc = '[S]earch [W]ord in [F]ile' })
