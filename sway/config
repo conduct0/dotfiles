@@ -265,5 +265,11 @@ exec sleep 0.9s && swaymsg "workspace 1; exec $term;"
 #
 # bindsym $mod+p mode "$screenshot"
 #
+# capture all screens to clipboard    
+bindsym $mod+p exec grim - | wl-copy    
+    
+# capture the specified screen area to clipboard    
+bindsym $mod+Shift+p exec grim -g "$(slurp)" - | wl-copy    
+
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
 
