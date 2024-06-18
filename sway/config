@@ -238,6 +238,10 @@ default_border pixel 1
 default_floating_border none
 titlebar_padding 1
 titlebar_border_thickness 0
+client.focused "#c6a0fa" "#c6a0fa" "#c6a0fa" "#c6a0fa"
+
+
+
 
 # Custom Keybindings
 bindsym $mod+Ctrl+b exec firefox
