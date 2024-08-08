@@ -250,7 +250,7 @@ bindsym $mod+Ctrl+k exec keepassxc
 bindsym $mod+Ctrl+o exec obsidian
 exec swaymsg "workspace 4;exec thunar";
 exec sleep 0.3s && swaymsg "workspace 2;exec firefox";
-exec sleep 0.4s && swaymsg "workspace 5;exec keepassxc";
+exec sleep 0.4s && swaymsg "workspace 10;exec keepassxc";
 exec sleep 0.9s && swaymsg "workspace 1; exec $term;"
 #
 # Screen capture
