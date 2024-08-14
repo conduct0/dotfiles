@@ -1,6 +1,4 @@
-# Nvim and Sway (and waybar) config 
-Nvim config started based on ThePrimeagen config. All this folders should be in ~/.config/
-
+# Setup
 If you want to only install selected folders in your config do the following
 [This](https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository) helped me understand how to pull selectively instead of hell submodules.
 ```bash
