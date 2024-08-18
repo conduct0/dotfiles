@@ -275,5 +275,11 @@ bindsym $mod+p exec grim - | wl-copy
 # capture the specified screen area to clipboard    
 bindsym $mod+Shift+p exec grim -g "$(slurp)" - | wl-copy    
 
+# Notification Daemon
+exec swaync
+
+# Toggle control center
+bindsym $mod+Shift+n exec swaync-client -t -sw
+
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
 

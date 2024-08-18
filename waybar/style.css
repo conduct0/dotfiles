@@ -113,3 +113,7 @@ tooltip label {
     margin: 5px 0 5px 0;
     padding: 0 0.5rem 0 0.5rem;
 }
+
+#custom-notification {
+    font-family: "NotoSansMono Nerd Font";
+}
