@@ -90,6 +90,9 @@ output eDP-1 scale 1.5
     # Reload the configuration file
     bindsym $mod+Shift+r reload
 
+    # Lock screen
+    bindsym $mod+Shift+o exec swaylock -f -c 000000
+
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 #
