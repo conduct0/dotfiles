@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "custom/media"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/notification","mpd", "backlight","pulseaudio", "network",  "battery", "battery#bat2", "clock", "tray"],
+    "modules-right": ["custom/notification","mpd", "backlight","pulseaudio", "network",  "battery", "battery#bat2", "idle_inhibitor","clock", "tray"],
     "sway/window":{
         "max-length":50,
     },
