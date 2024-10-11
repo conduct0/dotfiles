@@ -67,4 +67,4 @@ vim.keymap.set("n", "<leader>rbf", ":Refactor extract_block_to_file")
 vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- To not conflict with TMUX key C-a
-vim.keymap.set("n", "<C-i>", "<C-a>", { desc = "Increment number" })
+vim.keymap.set("n", "<C-.>", "<C-a>", { desc = "Increment number" })
