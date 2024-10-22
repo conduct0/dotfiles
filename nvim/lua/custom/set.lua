@@ -45,3 +45,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.g.netrw_liststyle = 0
 vim.g.netrw_timefmt = "%a %d/%m/%y  %H:%M:%S"
 vim.g.netrw_sizestyle = "H"
+
+-- Spell checker
+vim.opt.spelllang = "en_us"
+vim.opt.spell = true
