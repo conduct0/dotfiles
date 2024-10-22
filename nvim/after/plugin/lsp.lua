@@ -78,6 +78,7 @@ local servers = {
 	cssls = { filetypes = { "scss", "css" } },
 	gopls = {},
 	pyright = {},
+	ruby_lsp = {},
 	solargraph = {
 		completion = true,
 		autoformat = false,
