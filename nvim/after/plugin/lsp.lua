@@ -74,7 +74,7 @@ end
 --  define the property 'filetypes' to the map in question.
 local servers = {
 	clangd = {},
-	html = { filetypes = { "html", "twig", "hbs" } },
+	html = { filetypes = { "html", "twig", "hbs", "templ" } },
 	cssls = { filetypes = { "scss", "css" } },
 	gopls = {},
 	pyright = {},
