@@ -71,5 +71,4 @@ require("rose-pine").setup({
 		-- end
 	end,
 })
-
 vim.cmd("colorscheme rose-pine")
