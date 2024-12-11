@@ -54,12 +54,10 @@ vim.opt.spell = true
 vim.g.vimtex_quickfix_autoclose_after_keystrokes = 2
 
 local group = vim.api.nvim_create_augroup("TexTWrapGroup", { clear = true })
-
 local setWrappedText = function()
 	vim.opt_local.wrap = true
 	vim.opt_local.linebreak = true
 end
-
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { "*.tex" },
 	group = group,
