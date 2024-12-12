@@ -47,9 +47,9 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- To not conflict with TMUX key C-a
-vim.keymap.set("n", "<C-.>", "<C-a>", { desc = "Increment number" })
+vim.keymap.set("n", "<C-;>", "<C-a>", { desc = "Increment number" })
 
--- Utilis
+-- Utils
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without yanking" })
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Esc" })
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
