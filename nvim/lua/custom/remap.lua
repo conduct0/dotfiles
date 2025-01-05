@@ -49,8 +49,8 @@ vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent director
 -- Utils
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without yanking" })
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Esc" })
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<A-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<A-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
