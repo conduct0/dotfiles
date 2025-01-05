@@ -1,5 +1,13 @@
 pcall(require("telescope").load_extension, "fzf")
 
+require("telescope").setup({
+	pickers = {
+		find_files = {
+			find_command = { "rg", "--files", "--color", "never", "--no-require-git" },
+		},
+	},
+})
+
 function vim.getVisualSelection()
 	vim.cmd('noau normal! "vy"')
 	local text = vim.fn.getreg("v")
