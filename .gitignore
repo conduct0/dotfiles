@@ -3,6 +3,7 @@
 !*/
 !.gitignore 
 # Recursively allow files under subtree
+chromium
 !nvim/**/*
 !swaylock/**/*
 !waybar/**/*
