@@ -94,8 +94,8 @@ local servers = {
 	html = { filetypes = { "html", "twig", "hbs", "templ" } },
 	cssls = { filetypes = { "scss", "css" } },
 	gopls = {},
-	pyright = {},
 	vtsls = {},
+	pyright = {},
 	lua_ls = {
 		settings = {
 			Lua = {
@@ -117,7 +117,6 @@ vim.list_extend(ensure_installed, {
 	"stylua",
 	"black",
 	"isort",
-	"ruff",
 })
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 require("mason-lspconfig").setup({
@@ -134,3 +133,33 @@ require("mason-lspconfig").setup({
 		end,
 	},
 })
+local warnings_enabled = true
+
+local function toggle_basedpyright_warnings()
+	warnings_enabled = not warnings_enabled
+
+	local settings = {
+		basedpyright = {
+			typeCheckingMode = warnings_enabled and "standard" or "basic",
+			reportDeprecated = warnings_enabled,
+			reportUnknownParameterType = warnings_enabled,
+			reportUnknownArgumentType = warnings_enabled,
+			reportUnknownVariableType = warnings_enabled,
+			reportMissingParameterType = warnings_enabled,
+			reportUnusedCallResult = warnings_enabled,
+			reportAny = warnings_enabled,
+			reportGeneralTypeIssues = warnings_enabled,
+		},
+	}
+
+	for _, client in pairs(vim.lsp.get_clients()) do
+		if client.name == "basedpyright" then
+			client.config.settings = settings
+			client.notify("workspace/didChangeConfiguration", { settings = settings })
+		end
+	end
+
+	print("Basedpyright warnings " .. (warnings_enabled and "enabled" or "disabled"))
+end
+
+vim.keymap.set("n", "<leader>tw", toggle_basedpyright_warnings, { desc = "Toggle basedpyright warnings" })
