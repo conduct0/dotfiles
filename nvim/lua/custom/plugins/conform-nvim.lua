@@ -27,8 +27,14 @@ return { -- Autoformat
 		formatters_by_ft = {
 			lua = { "stylua" },
 			-- Conform can also run multiple formatters sequentially
-			python = { "isort", "black", "ruff" },
-			--
+			python = {
+				-- To fix auto-fixable lint errors.
+				"ruff_fix",
+				-- To run the Ruff formatter.
+				"ruff_format",
+				-- To organize the imports.
+				"ruff_organize_imports",
+			},
 			-- You can use a sub-list to tell conform to run *until* a formatter
 			-- is found.
 			javascript = { "prettierd", "prettier", stop_after_first = true },
