@@ -3,18 +3,28 @@
 --    That is to say, every time a new file is opened that is associated with
 --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
 --    function will be executed to configure the current buffer
+-- Diagnostic Config
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 	callback = function(event)
+		local client = vim.lsp.get_client_by_id(event.data.client_id)
+		if not client then
+			return
+		end
+
+		if client.name == "ruff" then
+			client.server_capabilities.hoverProvider = false
+		end
+
 		local map = function(keys, func, desc, mode)
 			mode = mode or "n"
 			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 		end
+
 		map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
 		map("gca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
 		map("K", vim.lsp.buf.hover, "Hover Documentation")
 		map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-		-- Lesser used LSP functionality
 		map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 		map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 		map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
@@ -22,28 +32,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("gtd", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype [D]efinition")
 		map("gds", require("telescope.builtin").lsp_document_symbols, "[G]oto [D]ocument [S]ymbols")
 		map("gws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[G]oto [W]orkspace [S]ymbols")
-		-- See `:help K` for why this keymap
 
-		-- The following two autocommands are used to highlight references of the
-		-- word under your cursor when your cursor rests there for a little while.
-		--    See `:help CursorHold` for information about when this is executed
-		--
-
-		local client = vim.lsp.get_client_by_id(event.data.client_id)
-		if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+		if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
 			local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 				buffer = event.buf,
 				group = highlight_augroup,
 				callback = vim.lsp.buf.document_highlight,
 			})
-
 			vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 				buffer = event.buf,
 				group = highlight_augroup,
 				callback = vim.lsp.buf.clear_references,
 			})
-
 			vim.api.nvim_create_autocmd("LspDetach", {
 				group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
 				callback = function(event2)
@@ -54,7 +55,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
--- Diagnostic Config
 -- See :help vim.diagnostic.Opts
 vim.diagnostic.config({
 	severity_sort = true,
@@ -95,7 +95,29 @@ local servers = {
 	cssls = { filetypes = { "scss", "css" } },
 	gopls = {},
 	vtsls = {},
-	pyright = {},
+	pyright = {
+		settings = {
+			pyright = {
+				-- Using Ruff's import organizer
+				disableOrganizeImports = true,
+			},
+			python = {
+				analysis = {
+					-- Ignore all files for analysis to exclusively use Ruff for linting
+					ignore = { "*" },
+				},
+			},
+		},
+	},
+	ruff = {
+		init_options = {
+			settings = {
+				args = {
+					"--ignore=F821",
+				},
+			},
+		},
+	},
 	lua_ls = {
 		settings = {
 			Lua = {
@@ -111,16 +133,15 @@ local servers = {
 }
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
-require("mason").setup()
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
 	"stylua",
-	"black",
-	"isort",
 })
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = {},
+	ensure_installed = {}, -- explicitly set to an empty table (populates installs via mason-tool-installer)
+	automatic_enable = true,
 	automatic_installation = false,
 	handlers = {
 		function(server_name)
@@ -133,33 +154,3 @@ require("mason-lspconfig").setup({
 		end,
 	},
 })
-local warnings_enabled = true
-
-local function toggle_basedpyright_warnings()
-	warnings_enabled = not warnings_enabled
-
-	local settings = {
-		basedpyright = {
-			typeCheckingMode = warnings_enabled and "standard" or "basic",
-			reportDeprecated = warnings_enabled,
-			reportUnknownParameterType = warnings_enabled,
-			reportUnknownArgumentType = warnings_enabled,
-			reportUnknownVariableType = warnings_enabled,
-			reportMissingParameterType = warnings_enabled,
-			reportUnusedCallResult = warnings_enabled,
-			reportAny = warnings_enabled,
-			reportGeneralTypeIssues = warnings_enabled,
-		},
-	}
-
-	for _, client in pairs(vim.lsp.get_clients()) do
-		if client.name == "basedpyright" then
-			client.config.settings = settings
-			client.notify("workspace/didChangeConfiguration", { settings = settings })
-		end
-	end
-
-	print("Basedpyright warnings " .. (warnings_enabled and "enabled" or "disabled"))
-end
-
-vim.keymap.set("n", "<leader>tw", toggle_basedpyright_warnings, { desc = "Toggle basedpyright warnings" })
