@@ -109,15 +109,6 @@ local servers = {
 			},
 		},
 	},
-	ruff = {
-		init_options = {
-			settings = {
-				args = {
-					"--ignore=F821",
-				},
-			},
-		},
-	},
 	lua_ls = {
 		settings = {
 			Lua = {
