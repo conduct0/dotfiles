@@ -59,7 +59,7 @@ local setWrappedText = function()
 	vim.opt_local.linebreak = true
 end
 vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = { "*.tex" },
+	pattern = { "*.tex", "*.md" },
 	group = group,
 	callback = setWrappedText,
 })
