@@ -56,3 +56,32 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- Markview
 vim.keymap.set("n", "<leader>m", "<cmd>Markview toggle<CR>", { desc = "Toggle Markdown preview" })
+-- Markdown Todo
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "markdown" },
+	callback = function()
+		local opts = { buffer = true, silent = true }
+
+		vim.keymap.set("n", "<leader>tt", function()
+			local line = vim.api.nvim_get_current_line()
+			local new_line
+			if line:match("^%s*- %[ %]") then
+				-- Empty -> Checked
+				new_line = line:gsub("^(%s*- )%[ %]", "%1[x]")
+			elseif line:match("^%s*- %[x%]") then
+				-- Checked -> Empty
+				new_line = line:gsub("^(%s*- )%[x%]", "%1[ ]")
+			else
+				local indent = line:match("^%s*") or ""
+				local content = line:gsub("^%s*", "")
+				if content == "" then
+					new_line = indent .. "- [ ] "
+				else
+					new_line = indent .. "- [ ] " .. content
+				end
+			end
+			vim.api.nvim_set_current_line(new_line)
+		end, vim.tbl_extend("force", opts, { desc = "Toggle todo checkbox" }))
+	end,
+})

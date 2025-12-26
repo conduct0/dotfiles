@@ -4,6 +4,8 @@
 --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
 --    function will be executed to configure the current buffer
 -- Diagnostic Config
+telescope = require("telescope.builtin")
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 	callback = function(event)
@@ -26,12 +28,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("K", vim.lsp.buf.hover, "Hover Documentation")
 		map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 		map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-		map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-		map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-		map("gi", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-		map("gtd", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype [D]efinition")
-		map("gds", require("telescope.builtin").lsp_document_symbols, "[G]oto [D]ocument [S]ymbols")
-		map("gws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[G]oto [W]orkspace [S]ymbols")
+		map("gd", telescope.lsp_definitions, "[G]oto [D]efinition")
+		map("gr", telescope.lsp_references, "[G]oto [R]eferences")
+		map("gi", telescope.lsp_implementations, "[G]oto [I]mplementation")
+		map("gtd", telescope.lsp_type_definitions, "[G]oto [T]ype [D]efinition")
+		map("gds", telescope.lsp_document_symbols, "[G]oto [D]ocument [S]ymbols")
+		map("gws", telescope.lsp_dynamic_workspace_symbols, "[G]oto [W]orkspace [S]ymbols")
 
 		if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
 			local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })

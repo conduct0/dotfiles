@@ -42,7 +42,7 @@ require("lualine").setup({
 			},
 		},
 		lualine_x = {},
-		lualine_y = { "encoding", "filetype" },
+		lualine_y = { "filetype" },
 		lualine_z = { "progress" },
 	},
 	inactive_sections = {
