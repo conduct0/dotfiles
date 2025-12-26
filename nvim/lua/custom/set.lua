@@ -36,25 +36,8 @@ vim.o.timeoutlen = 1000
 -- Show which line your cursor is on
 vim.o.cursorline = true
 
--- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
--- instead raise a dialog asking if you wish to save the current file(s)
--- See `:help 'confirm'`
-vim.o.confirm = true
-
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noselect"
-
---
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.hl.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.hl.on_yank()
-	end,
-})
 
 --  Show date with file in Netwr
 vim.g.netrw_liststyle = 0
@@ -78,4 +61,16 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { "*.tex", "*.md" },
 	group = group,
 	callback = setWrappedText,
+})
+--
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	group = highlight_group,
+	pattern = "*",
 })
