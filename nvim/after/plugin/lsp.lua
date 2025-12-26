@@ -95,6 +95,7 @@ local servers = {
 	cssls = { filetypes = { "scss", "css" } },
 	gopls = {},
 	vtsls = {},
+	rust_analyzer = {},
 	pyright = {
 		settings = {
 			pyright = {
@@ -128,7 +129,7 @@ local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
 	"stylua",
 })
-require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+require("mason-tool-installer").setup({ ensure_installed = ensure_installed, run_on_start = false })
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = {}, -- explicitly set to an empty table (populates installs via mason-tool-installer)
