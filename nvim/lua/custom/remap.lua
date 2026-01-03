@@ -24,7 +24,6 @@ vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste over, no yank" })
 -- Copy to system clipboard
 vim.keymap.set("v", "<leader>y", [["+y]], { desc = "Yank selection to clip" })
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank curr line to clip" })
-
 -- Replace current word
 vim.keymap.set(
 	"n",
@@ -34,6 +33,9 @@ vim.keymap.set(
 )
 vim.keymap.set("v", "<C-r>", [["hy:%s/<C-r>h//gc<left><left><left>]], { desc = "Replace selected text" })
 
+
+
+        
 -- Make file executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make file executable" })
 
@@ -45,6 +47,7 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 
 -- Oil
 vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "<leader>b", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Utils
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without yanking" })
