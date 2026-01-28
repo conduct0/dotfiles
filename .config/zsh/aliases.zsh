@@ -1,6 +1,7 @@
 # Own
 alias vim="nvim"
 alias tmux="tmux -f ~/.config/tmux/tmux.conf"
+alias ses="sh $XDG_CONFIG_HOME/tmux/tmux-sessionizer.sh"
 alias reload="source $ZDOTDIR/.zshrc"
 alias edit="nvim $ZDOTDIR/.zshrc"
 
@@ -11,6 +12,7 @@ alias diff='diff --color=auto'
 alias ip='ip -c=auto'
 
 # Files
+alias ..='cd ..'
 alias l='ls'
 alias ll='ls -l'
 alias la='ls -lA'

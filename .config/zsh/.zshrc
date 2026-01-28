@@ -1,3 +1,7 @@
+# Rust setup
+. "$HOME/.cargo/env"
+[[ -f $HOME/.zprofile ]] && source $HOME/.zprofile
+
 ## Completion
 autoload -U compinit; compinit
 zstyle ':completion:*' menu select
@@ -27,4 +31,5 @@ source $ZDOTDIR/aliases.zsh
 source $ZDOTDIR/plugins.zsh
 
 ## Prompt
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 eval "$(starship init zsh)"
