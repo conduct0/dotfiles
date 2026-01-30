@@ -6,5 +6,5 @@
 - vim-bundler and vim-endwise - part of my ruby setup but dont need them anymore
 - which-key - Lets see how it goes without it. I actually dont usually need it 
 - gitsigns - actually cool so I might re add it. but for now I have all needed functionality with vim-fugitive.
-- vim-surround and autopairs - I removed them because I wanna use more of the  native stuff
+- autopairs - I removed them because I wanna use more of the  native stuff
 - markview - seeing raw markdown sometimes is easier to edit. Wanna try for some time without this plugin

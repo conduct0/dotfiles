@@ -23,7 +23,6 @@ bindkey -v
 # makes the change quicker https://thevaluable.dev/zsh-install-configure-mouseless/
 export KEYTIMEOUT=1
 
-
 ## Aliases
 source $ZDOTDIR/aliases.zsh
 
