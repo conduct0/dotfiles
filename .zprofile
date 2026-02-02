@@ -33,6 +33,7 @@ typeset -U path
 
 path=(
   $HOME/.local/bin
+  $HOME/.local/share/applications/
   $HOME/.cargo/bin
   $PYENV_ROOT/bin
   $GOPATH/bin

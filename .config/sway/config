@@ -25,8 +25,7 @@ set $rofi_cmd rofi \
         -font 'FiraCode Nerd Font 11'
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
-# TODO: add window with the next release of rofi-wayland
-set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
+set $menu $rofi_cmd -show combi -modes combi -combi-modes "window,drun"
 
 ### Output configuration
 #
@@ -245,6 +244,12 @@ client.focused "#c6a0fa" "#c6a0fa" "#c6a0fa" "#c6a0fa"
 
 
 
+exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
+exec systemctl --user import-environment DISPLAY \
+                                         SWAYSOCK \
+                                         WAYLAND_DISPLAY \
+                                         XDG_CURRENT_DESKTOP
+
 
 # Custom Keybindings
 bindsym $mod+Ctrl+b exec firefox
@@ -253,7 +258,9 @@ bindsym $mod+Ctrl+o exec obsidian
 exec swaymsg "workspace 4;exec thunar";
 exec sleep 0.2s && swaymsg "workspace 3;exec obsidian";
 exec sleep 0.3s && swaymsg "workspace 2;exec firefox";
-exec sleep 0.9s && swaymsg "workspace 1; exec $term;"
+exec sleep 0.9s && swaymsg "workspace 1; exec $term";
+exec sleep 1s && swaymsg 'workspace 9; exec sh -lc "bitwarden"';
+
 #
 # Screen capture
 #
@@ -280,8 +287,6 @@ bindsym $mod+Shift+p exec grim -g "$(slurp)" - | wl-copy
 # Notification Daemon
 exec swaync
 
-# Toggle control center
-bindsym $mod+Shift+n exec swaync-client -t -sw
 
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
 
