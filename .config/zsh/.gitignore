@@ -1,0 +1,7 @@
+# exclude everything
+plugins/*
+
+# exception to the rule
+!plugins/.gitkeep 
+.zhistory
+.zcompdump

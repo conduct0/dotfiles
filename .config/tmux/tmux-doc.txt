@@ -1,0 +1,142 @@
+════════════════════════════════════════════════════════════════════════════════
+                                Tmux Cheat Sheet                                
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+                                    Sessions                                    
+────────────────────────────────────────────────────────────────────────────────
+
+ $ tmux                               # Start a new tmux session
+ $ tmux new                           # Start a new tmux session
+ $ tmux new-session                   # Start a new tmux session
+ : new                                # Start a new session (in tmux command mode)
+
+ $ tmux new -s mysession              # Start a new session named 'mysession'
+ : new -s mysession                   # Start a new session named 'mysession'
+
+ $ tmux ls                            # List all sessions
+ $ tmux list-sessions                 # List all sessions
+ [Ctrl] + [a] [s]                     # Show all sessions
+
+ $ tmux a                             # Attach to the last session
+ $ tmux at                            # Attach to the last session
+ $ tmux attach                        # Attach to the last session
+ $ tmux attach-session                # Attach to the last session
+
+ $ tmux a -t mysession                # Attach to a session named 'mysession'
+ $ tmux at -t mysession               # Attach to a session named 'mysession'
+ $ tmux attach -t mysession           # Attach to a session named 'mysession'
+ $ tmux attach-session -t mysession   # Attach to a session named 'mysession'
+
+ $ tmux kill-ses -t mysession         # Kill/delete session named 'mysession'
+ $ tmux kill-session -t mysession     # Kill/delete session named 'mysession'
+ $ tmux kill-session -a               # Kill/delete all sessions but the current one
+ $ tmux kill-session -a -t mysession  # Kill/delete all sessions but 'mysession'
+
+ [Ctrl] + [a] [$]                     # Rename session
+ [Ctrl] + [a] [d]                     # Detach from session
+ : attach -d                          # Detach others on the session (maximize window by detaching other clients)
+
+────────────────────────────────────────────────────────────────────────────────
+                                    Windows                                     
+────────────────────────────────────────────────────────────────────────────────
+
+ $ tmux new -s mysession -n mywindow  # Start a new session with the name 'mysession' and window 'mywindow'
+
+ [Ctrl] + [a] [c]                     # Create window
+ [Ctrl] + [a] [,]                     # Rename current window
+ [Ctrl] + [a] [&]                     # Close current window
+
+ [Ctrl] + [a] [n]                     # Next window
+ [Ctrl] + [a] [p]                     # Previous window
+ [Ctrl] + [a] [0] ... [9]             # Switch/select window by number
+
+ : swap-window -s 2 -t 1              # Reorder window, swap window number 2(src) and 1(dst)
+ : swap-window -t -1                  # Move current window to the left by one position
+
+────────────────────────────────────────────────────────────────────────────────
+                                     Panes                                      
+────────────────────────────────────────────────────────────────────────────────
+
+ [Ctrl] + [a] [%]                     # Split pane vertically
+ [Ctrl] + [a] ["]                     # Split pane horizontally
+
+ [Ctrl] + [a] [{]                     # Move the current pane left
+ [Ctrl] + [a] [}]                     # Move the current pane right
+
+ [Ctrl] + [a] [Up]                    # Switch to pane above
+ [Ctrl] + [a] [Down]                  # Switch to pane below
+ [Ctrl] + [a] [Right]                 # Switch to pane on the right
+ [Ctrl] + [a] [Left]                  # Switch to pane on the left
+
+ [Ctrl] + [a] [q]                     # Show pane numbers
+ [Ctrl] + [a] [q] [0] ... [9]         # Switch/select pane by number
+ [Ctrl] + [a] [z]                     # Toggle pane zoom
+
+ [Ctrl] + [a] [!]                     # Convert pane into a window
+ [Ctrl] + [a] [Spacebar]              # Toggle between pane layouts
+ [Ctrl] + [a] [o]                     # Switch to next pane
+
+ [Ctrl] + [a] [x]                     # Close current pane
+ : setw synchronize-panes             # Toggle synchronize-panes (send command to all panes)
+
+ [Ctrl] + [a] [;]                     # Toggle last active pane
+
+ [Ctrl] + [a] [Up]                    # Resize current pane height
+ [Ctrl] + [a] [Down]                  # Resize current pane height
+ [Ctrl] + [a] [Right]                 # Resize current pane width
+ [Ctrl] + [a] [Left]                  # Resize current pane width
+
+────────────────────────────────────────────────────────────────────────────────
+                                    Copy Mode                                   
+────────────────────────────────────────────────────────────────────────────────
+
+ : setw -g mode-keys vi               # Use vi keys in buffer
+ [Ctrl] + [a] [[]                     # Enter copy mode
+ [Ctrl] + [a] [PgUp]                  # Enter copy mode and scroll one page up
+
+ [q]                                  # Quit mode
+ [g]                                  # Go to top line
+ [G]                                  # Go to bottom line
+ [Up]                                 # Scroll up
+ [Down]                               # Scroll down
+ [h]                                  # Move cursor left
+ [j]                                  # Move cursor down
+ [k]                                  # Move cursor up
+ [l]                                  # Move cursor right
+ [w]                                  # Move cursor forward one word at a time
+ [b]                                  # Move cursor backward one word at a time
+
+ [/]                                  # Search forward
+ [?]                                  # Search backward
+ [n]                                  # Next keyword occurrence
+ [N]                                  # Previous keyword occurrence
+
+ [Spacebar]                           # Start selection
+ [Esc]                                # Clear selection
+ [Enter]                              # Copy selection
+ [Ctrl] + [a] []]                     # Paste contents of buffer_0
+
+ : show-buffer                        # Display buffer_0 contents
+ : capture-pane                       # Copy entire visible contents of pane to a buffer
+ : list-buffers                       # Show all buffers
+ : choose-buffer                      # Show all buffers and paste selected
+ : save-buffer buf.txt                # Save buffer contents to buf.txt
+ : delete-buffer -b 1                 # Delete buffer_1
+
+────────────────────────────────────────────────────────────────────────────────
+                                     Misc                                       
+────────────────────────────────────────────────────────────────────────────────
+
+ [Ctrl] + [a] [:]                     # Enter command mode
+
+ : setw -g OPTION                     # Set OPTION for all windows
+ : set -g OPTION                      # Set OPTION for all sessions
+
+────────────────────────────────────────────────────────────────────────────────
+                                     Help                                       
+────────────────────────────────────────────────────────────────────────────────
+
+ $ tmux info                          # Show every session, window, pane, etc.
+ [Ctrl] + [a] [?]                     # Show shortcuts
+
