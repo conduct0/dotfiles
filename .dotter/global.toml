@@ -1,0 +1,21 @@
+[helpers]
+
+[default]
+depends = []
+
+[default.files]
+foot = "$XDG_CONFIG_HOME/foot"
+sway = "$XDG_CONFIG_HOME/sway"
+swaylock = "$XDG_CONFIG_HOME/swaylock"
+swaync = "$XDG_CONFIG_HOME/swaync"
+nvim = "$XDG_CONFIG_HOME/nvim"
+tmux = "$XDG_CONFIG_HOME/tmux"
+waybar = "$XDG_CONFIG_HOME/waybar"
+zsh = "$XDG_CONFIG_HOME/zsh"
+zprofile = "$HOME/.zprofile"
+zshenv = "$HOME/.zshenv"
+
+[default.variables]
+
+[settings]
+default_target_type = "automatic"
