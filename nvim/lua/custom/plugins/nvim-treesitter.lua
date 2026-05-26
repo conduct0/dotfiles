@@ -4,23 +4,30 @@ return {
 	lazy = false,
 	config = function()
 		local parsers = {
-			"bash",
+			-- lang
 			"c",
 			"cpp",
-			"diff",
-			"html",
-			"lua",
-			"luadoc",
-			"markdown",
-			"markdown_inline",
-			"query",
-			"vim",
-			"vimdoc",
+			"rust",
+			"bash",
 			"python",
+			"go",
 			"javascript",
 			"typescript",
+			-- lua
+			"lua",
+			"luadoc",
+			-- web
+			"html",
 			"tsx",
-			"go",
+			-- config / data
+			"yaml",
+			"diff",
+			-- neovim / docs
+			"vim",
+			"vimdoc",
+			"query",
+			"markdown",
+			"markdown_inline",
 		}
 		require("nvim-treesitter").install(parsers)
 
