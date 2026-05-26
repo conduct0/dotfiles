@@ -89,62 +89,72 @@ vim.diagnostic.config({
 --  By default, Neovim doesn't support everything that is in the LSP specification.
 --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
 --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
-local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-local servers = {
-	clangd = {},
-	html = { filetypes = { "html", "twig", "hbs", "templ" } },
-	cssls = { filetypes = { "scss", "css" } },
-	gopls = {},
-	vtsls = {},
-	rust_analyzer = {},
-	pyright = {
-		settings = {
-			pyright = {
-				-- Using Ruff's import organizer
-				disableOrganizeImports = true,
-			},
-			python = {
-				analysis = {
-					-- Ignore all files for analysis to exclusively use Ruff for linting
-					ignore = { "*" },
-				},
-			},
-		},
-	},
-	lua_ls = {
-		settings = {
-			Lua = {
-				completion = {
-					callSnippet = "Replace",
-				},
-				workspace = { checkThirdParty = false },
-				telemetry = { enable = false },
-				diagnostics = { disable = { "missing-fields" }, globals = { "vim" } },
-			},
-		},
-	},
-}
--- mason-lspconfig requires that these setup functions are called in this order
--- before setting up the servers.
-local ensure_installed = vim.tbl_keys(servers or {})
-vim.list_extend(ensure_installed, {
-	"stylua",
+vim.lsp.config("*", {
+	capabilities = require("blink.cmp").get_lsp_capabilities(),
 })
-require("mason-tool-installer").setup({ ensure_installed = ensure_installed, run_on_start = false })
-require("mason").setup()
+
+-- Custom configs for servers that need non-default settings.
+-- Servers with no custom config are enabled automatically by mason-lspconfig below.
+vim.lsp.config("html", { filetypes = { "html", "twig", "hbs", "templ" } })
+vim.lsp.config("cssls", { filetypes = { "scss", "css" } })
+vim.lsp.config("basedpyright", {
+	settings = {
+		basedpyright = { disableOrganizeImports = true },
+		python = { analysis = { ignore = { "*" } } },
+	},
+})
+vim.lsp.config("lua_ls", {
+	on_init = function(client)
+		client.server_capabilities.documentFormattingProvider = false -- Disable formatting (formatting is done by stylua)
+
+		if client.workspace_folders then
+			local path = client.workspace_folders[1].name
+			if
+				path ~= vim.fn.stdpath("config")
+				and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
+			then
+				return
+			end
+		end
+
+		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+			runtime = {
+				version = "LuaJIT",
+				path = { "lua/?.lua", "lua/?/init.lua" },
+			},
+			workspace = {
+				checkThirdParty = false,
+				-- NOTE: this is a lot slower and will cause issues when working on your own configuration.
+				--  See https://github.com/neovim/nvim-lspconfig/issues/3189
+				library = vim.tbl_extend("force", vim.api.nvim_get_runtime_file("", true), {
+					"${3rd}/luv/library",
+					"${3rd}/busted/library",
+				}),
+			},
+		})
+	end,
+	---@type lspconfig.settings.lua_ls
+	settings = {
+		Lua = {
+			format = { enable = false }, -- Disable formatting (formatting is done by stylua)
+		},
+	},
+})
+
+require("mason").setup({})
+
+-- mason-lspconfig uses lspconfig server names and handles mason package name translation automatically.
+-- To check the current status of installed tools and/or manually install other tools, run :Mason
+-- You can press `g?` for help in this menu.
 require("mason-lspconfig").setup({
-	ensure_installed = {}, -- explicitly set to an empty table (populates installs via mason-tool-installer)
+	ensure_installed = { "clangd", "html", "cssls", "gopls", "rust_analyzer", "basedpyright", "lua_ls" },
 	automatic_enable = true,
-	automatic_installation = false,
-	handlers = {
-		function(server_name)
-			local server = servers[server_name] or {}
-			-- This handles overriding only values explicitly passed
-			-- by the server configuration above. Useful when disabling
-			-- certain features of an LSP (for example, turning off formatting for tsserver)
-			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-			require("lspconfig")[server_name].setup(server)
-		end,
+})
+
+-- mason-tool-installer for tools that aren't LSP servers (formatters, linters, etc.)
+require("mason-tool-installer").setup({
+	ensure_installed = {
+		"stylua",
+		"ruff",
 	},
 })
