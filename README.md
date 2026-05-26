@@ -19,4 +19,7 @@ dotter deploy --force
 ### Notes and requirements
 - FiraCode Nerd Font Icons will look wierd without those symbols.
 - fzf
+- nvim 0.12+
+- tree-sitter
+- ripgrep
 
