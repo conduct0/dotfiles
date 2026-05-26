@@ -259,8 +259,8 @@ bindsym $mod+Ctrl+o exec obsidian
 exec swaymsg "workspace 4;exec thunar";
 exec sleep 0.1s && swaymsg "workspace 1; exec $term";
 exec sleep 0.2s && swaymsg "workspace 2;exec firefox";
-exec sleep 0.4s && swaymsg 'workspace 10; exec sh -lc "bitwarden"';
-exec sleep 1.2s && swaymsg "workspace 3;exec obsidian";
+exec sleep 1.4s && swaymsg "workspace 3;exec obsidian";
+exec sleep 2.4s && swaymsg 'workspace 10; exec sh -lc "bitwarden"';
 
 #
 # Screen capture

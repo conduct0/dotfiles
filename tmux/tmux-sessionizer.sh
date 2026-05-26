@@ -8,7 +8,7 @@ switch_to(){
     fi
 }
 
-session=$(find ~/workspace ~/workspace/Uni -mindepth 1 -maxdepth 1 -type d | fzf)
+session=$(find ~/workspace ~/workspace/Uni ~/Documents/ -mindepth 1 -maxdepth 1 -type d | fzf)
 session_name=$(basename "$session" | tr . _)
 
 if [ -z "$session" ]; then

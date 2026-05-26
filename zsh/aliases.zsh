@@ -31,5 +31,7 @@ alias gsw='git switch'
 alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'"
 
 # Dotfiles
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias d='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias ghidra='~/Programs/ghidra/ghidra_12.0.3_PUBLIC/ghidraRun'
+
+# Cloud
+alias k='kubectl'

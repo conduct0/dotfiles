@@ -14,7 +14,7 @@ export CAPACITOR_ANDROID_STUDIO_PATH="$HOME/Downloads/android-studio/bin/studio.
 export ANDROID_HOME=$HOME/Android/Sdk
 export PYENV_ROOT="$HOME/.pyenv"
 export NVM_DIR="$HOME/.nvm"
-export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+export JAVA_HOME=/usr/lib/jvm/java-25-openjdk
 # Cargo
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"

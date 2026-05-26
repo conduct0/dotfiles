@@ -18,8 +18,6 @@ bindkey "^[[B" down-line-or-beginning-search
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source /usr/share/fzf/shell/key-bindings.zsh 
 
-## VI mode
-bindkey -v
 # makes the change quicker https://thevaluable.dev/zsh-install-configure-mouseless/
 export KEYTIMEOUT=1
 
