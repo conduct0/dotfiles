@@ -236,7 +236,7 @@ input type:touchpad {
     tap enabled
 }
 
-font FiraCode Nerd Font: regular  0.001
+font FiraCode Nerd Font: regular  0.01
 default_border pixel 1
 default_floating_border none
 titlebar_padding 1
