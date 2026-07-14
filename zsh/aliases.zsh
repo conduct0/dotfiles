@@ -25,7 +25,7 @@ alias gp='git push'
 alias gl='git pull'
 alias gd='git diff'
 alias gb='git branch'
-alias gc='git commit --vebose'
+alias gc='git commit'
 alias ga='git add'
 alias gsw='git switch'
 alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'"
