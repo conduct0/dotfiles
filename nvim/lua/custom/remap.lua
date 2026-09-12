@@ -57,12 +57,18 @@ vim.keymap.set("n", "<A-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
--- Markdown Todo
 
+-- Markdown Setup
+-- make sure its not re-added on source
+local group = vim.api.nvim_create_augroup("Markdown setup", {clear = true})
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "markdown" },
+    group = group,
 	callback = function()
 		local opts = { buffer = true, silent = true }
+        vim.opt_local.tw = 80
+        vim.opt_local.colorcolumn = "81"
+
 
 		vim.keymap.set("n", "<leader>tt", function()
 			local line = vim.api.nvim_get_current_line()
