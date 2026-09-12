@@ -1,7 +1,3 @@
-════════════════════════════════════════════════════════════════════════════════
-                                Tmux Cheat Sheet                                
-════════════════════════════════════════════════════════════════════════════════
-
 ────────────────────────────────────────────────────────────────────────────────
                                     Sessions                                    
 ────────────────────────────────────────────────────────────────────────────────
@@ -17,6 +13,8 @@
  $ tmux ls                            # List all sessions
  $ tmux list-sessions                 # List all sessions
  [Ctrl] + [a] [s]                     # Show all sessions
+ [Ctrl] + [a] [f]                     # Search for dir to open session
+ [Ctrl] + [a] [g]                     # Clone repo and open session
 
  $ tmux a                             # Attach to the last session
  $ tmux at                            # Attach to the last session
