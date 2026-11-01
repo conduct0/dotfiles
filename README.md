@@ -7,9 +7,10 @@ You need to install `dotter`.
 cargo install dotter
 ```
 
-The clone the dotfiles
+Then clone the dotfiles
 ```bash
-git clone --bare https://github.com/conduct0/dotfiles $HOME/.dotfiles
+git clone https://github.com/conduct0/dotfiles $HOME/.dotfiles
+cd $HOME/.dotfiles
 
 # Check what would happen
 dotter deploy --dry-run
@@ -17,7 +18,7 @@ dotter deploy --dry-run
 dotter deploy --force
 ```
 ### Notes and requirements
-- FiraCode Nerd Font Icons will look wierd without those symbols.
+- FiraCode Nerd Font Icons will look weird without those symbols.
 - fzf
 - nvim 0.12+
 - tree-sitter
