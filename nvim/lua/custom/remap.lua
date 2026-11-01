@@ -24,6 +24,7 @@ vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste over, no yank" })
 -- Copy to system clipboard
 vim.keymap.set("v", "<leader>y", [["+y]], { desc = "Yank selection to clip" })
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank curr line to clip" })
+
 -- Replace current word
 vim.keymap.set(
 	"n",
@@ -33,9 +34,6 @@ vim.keymap.set(
 )
 vim.keymap.set("v", "<C-r>", [["hy:%s/<C-r>h//gc<left><left><left>]], { desc = "Replace selected text" })
 
-
-
-        
 -- Make file executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make file executable" })
 
@@ -57,18 +55,23 @@ vim.keymap.set("n", "<A-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-
 -- Markdown Setup
--- make sure its not re-added on source
-local group = vim.api.nvim_create_augroup("Markdown setup", {clear = true})
+local group = vim.api.nvim_create_augroup("Markdown setup", { clear = true })
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	group = group,
+	callback = function()
+		local md = vim.bo.filetype == "markdown"
+		vim.opt_local.wrap = md
+		vim.opt_local.linebreak = md
+		vim.opt_local.breakindent = md
+	end,
+})
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "markdown" },
-    group = group,
+	group = group,
 	callback = function()
 		local opts = { buffer = true, silent = true }
-        vim.opt_local.tw = 80
-        vim.opt_local.colorcolumn = "81"
-
 
 		vim.keymap.set("n", "<leader>tt", function()
 			local line = vim.api.nvim_get_current_line()
@@ -82,11 +85,7 @@ vim.api.nvim_create_autocmd("FileType", {
 			else
 				local indent = line:match("^%s*") or ""
 				local content = line:gsub("^%s*", "")
-				if content == "" then
-					new_line = indent .. "- [ ] "
-				else
-					new_line = indent .. "- [ ] " .. content
-				end
+				new_line = indent .. "- [ ] " .. content
 			end
 			vim.api.nvim_set_current_line(new_line)
 		end, vim.tbl_extend("force", opts, { desc = "Toggle todo checkbox" }))
