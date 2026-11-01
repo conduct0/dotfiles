@@ -31,3 +31,6 @@ source $ZDOTDIR/plugins.zsh
 ## Prompt
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 eval "$(starship init zsh)"
+
+# SSH Agent
+export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
