@@ -3,6 +3,7 @@ Here you find all my dotfiles.  I use [dotter](https://github.com/SuperCuber/dot
 ## Setup
 
 You need to install `dotter`.
+
 ```bash
 cargo install dotter
 ```

@@ -15,6 +15,7 @@ export ANDROID_HOME=$HOME/Android/Sdk
 export PYENV_ROOT="$HOME/.pyenv"
 export NVM_DIR="$HOME/.nvm"
 export JAVA_HOME=/usr/lib/jvm/java-25-openjdk
+
 # Cargo
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
@@ -24,6 +25,7 @@ fi
 export MOZ_ENABLE_WAYLAND=1
 export QT_QPA_PLATFORM=wayland
 export ELECTRON_OZONE_PLATFORM_HINT="auto"
+
 # is this needed?
 export _JAVA_AWT_WM_NONREPARENTING=1
 export AWT_TOOLKIT=MToolkit
