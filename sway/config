@@ -6,16 +6,18 @@
 
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
+# Logo key. 
 set $mod Mod4
+
 # Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
+
 # Your preferred terminal emulator
-# Recommends: foot
 set $term foot
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -23,6 +25,7 @@ set $term foot
 set $rofi_cmd rofi \
         -terminal '$term'\
         -font 'FiraCode Nerd Font 11'
+
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
 set $menu $rofi_cmd -show combi -modes combi -combi-modes "window,drun"
@@ -32,39 +35,17 @@ set $menu $rofi_cmd -show combi -modes combi -combi-modes "window,drun"
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
 output * bg /usr/share/backgrounds/main-background-image.jpg fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-output eDP-1 scale 1.5
-### Idle configuration
-#
-# Example configuration:
-#
-exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
 
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
+output eDP-1 scale 1.5 position 0 438
+output "Iiyama North America PL3270Q 1155101120784" position 1504 0
+
+workspace 1 output DP-1 DP-2 DP-3 DP-4
+workspace 2 output DP-1 DP-2 DP-3 DP-4
+workspace 3 output DP-1 DP-2 DP-3 DP-4
+workspace 4 output DP-1 DP-2 DP-3 DP-4
+workspace 10 output DP-1 DP-2 DP-3 DP-3
+
+
 
 ### Key bindings
 #
@@ -244,41 +225,18 @@ titlebar_border_thickness 0
 client.focused "#c6a0fa" "#c6a0fa" "#c6a0fa" "#c6a0fa"
 
 
-
-exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
-exec systemctl --user import-environment DISPLAY \
-                                         SWAYSOCK \
-                                         WAYLAND_DISPLAY \
-                                         XDG_CURRENT_DESKTOP
-
-
 # Custom Keybindings
-bindsym $mod+Ctrl+b exec firefox
-bindsym $mod+Ctrl+e exec nautilus
-bindsym $mod+Ctrl+o exec obsidian
-exec swaymsg "workspace 4;exec thunar";
-exec sleep 0.1s && swaymsg "workspace 1; exec $term";
-exec sleep 0.2s && swaymsg "workspace 2;exec firefox";
-exec sleep 1.4s && swaymsg "workspace 3;exec obsidian";
-exec sleep 2.4s && swaymsg 'workspace 10; exec sh -lc "bitwarden"';
+assign [app_id="org.mozilla.firefox"] 2
+assign [app_id="obsidian"] 3
+assign [app_id="thunar"] 4
+assign [app_id="Bitwarden"] 10
 
-#
-# Screen capture
-#
-# set $screenshot 1 clipboard, 2 swappy
-# mode "$screenshot" {
-#     bindsym 1 exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
-#     bindsym 2 exec 'grim - | wl-copy', mode "default"
-#     # Small faster access to swappy
-#     bindsym $mod+p exec 'grim -g "$(slurp)" - | swappy -f -', mode "default"
-#     # back to normal
-#     bindsym Return mode "default"
-#     bindsym Escape mode "default"
-#     bindsym q mode "default"
-# }
-#
-# bindsym $mod+p mode "$screenshot"
-#
+exec swaymsg "workspace number 1; exec $term"
+exec firefox;
+exec obsidian;
+exec thunar;
+exec sh -lc "bitwarden";
+
 # capture all screens to clipboard    
 bindsym $mod+p exec grim - | wl-copy    
     
