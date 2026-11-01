@@ -9,6 +9,7 @@ cargo install dotter
 ```
 
 Then clone the dotfiles
+
 ```bash
 git clone https://github.com/conduct0/dotfiles $HOME/.dotfiles
 cd $HOME/.dotfiles
@@ -18,7 +19,9 @@ dotter deploy --dry-run
 # Apply and overwrite
 dotter deploy --force
 ```
+
 ### Notes and requirements
+
 - FiraCode Nerd Font Icons will look weird without those symbols.
 - fzf
 - nvim 0.12+
