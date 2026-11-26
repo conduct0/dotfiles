@@ -3,7 +3,7 @@ alias vim="nvim"
 alias tmux="tmux -f ~/.config/tmux/tmux.conf"
 alias ses="sh $XDG_CONFIG_HOME/tmux/tmux-sessionizer.sh"
 alias reload="source $ZDOTDIR/.zshrc"
-alias edit="nvim $ZDOTDIR/.zshrc"
+alias edit="nvim $HOME/.dotfiles"
 
 # Colors
 alias ls='ls --color=auto -hv'
