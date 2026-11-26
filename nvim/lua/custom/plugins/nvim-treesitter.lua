@@ -13,6 +13,7 @@ return {
 			"go",
 			"javascript",
 			"typescript",
+			"typst",
 			-- lua
 			"lua",
 			"luadoc",

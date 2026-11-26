@@ -110,6 +110,34 @@ return {
 				python = { analysis = { ignore = { "*" } } },
 			},
 		})
+		vim.lsp.config("tinymist", {
+			settings = {
+				formatterMode = "typstyle",
+				exportPdf = "onSave",
+			},
+			on_attach = function(client, bufnr)
+				local function pin_main()
+					local file = vim.api.nvim_buf_get_name(bufnr)
+					local main = vim.fs.find("main.typ", {
+						-- search the parent
+						upward = true,
+						path = vim.fs.dirname(file),
+						stop = vim.env.HOME,
+					})[1]
+					client:exec_cmd({
+						title = "pin",
+						command = "tinymist.pinMain",
+						arguments = { main },
+					}, { bufnr = bufnr })
+				end
+				pin_main()
+				vim.api.nvim_create_autocmd("BufEnter", {
+					group = vim.api.nvim_create_augroup("tinymist-pin-" .. bufnr, { clear = true }),
+					buffer = bufnr,
+					callback = pin_main,
+				})
+			end,
+		})
 		vim.lsp.config("lua_ls", {
 			on_init = function(client)
 				client.server_capabilities.documentFormattingProvider = false
@@ -147,7 +175,18 @@ return {
 
 		require("mason").setup({})
 		require("mason-lspconfig").setup({
-			ensure_installed = { "clangd", "html", "cssls", "gopls", "rust_analyzer", "basedpyright", "lua_ls" },
+			ensure_installed = {
+				"clangd",
+				"html",
+				"cssls",
+				"gopls",
+				"rust_analyzer",
+				"basedpyright",
+				"lua_ls",
+				"bashls",
+				"yamlls",
+				"tinymist",
+			},
 			automatic_enable = true,
 		})
 		require("mason-tool-installer").setup({
